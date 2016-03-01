@@ -3,7 +3,7 @@ package com.dyrkin.tracker.core.repository.queries
 import com.dyrkin.tracker.core.driver.AgnosticDriver.api._
 import com.dyrkin.tracker.core.repository.Tables._
 import com.dyrkin.tracker.core.repository.TestData
-import com.dyrkin.tracker.core.service.{Services, ProgramService}
+import com.dyrkin.tracker.core.service.Services
 import org.scalatest.{BeforeAndAfter, MustMatchers, WordSpec}
 
 import scala.concurrent.duration.Duration
@@ -49,8 +49,8 @@ class ExerciseQueriesSpec extends WordSpec with MustMatchers with BeforeAndAfter
   "Database records" should {
     "be 1" in {
 //      db.run(DBIO.seq(users +=(-1, "Hello")).transactionally).exec
-      val res = services.programService.getActiveProgramByUserId(1).exec
-      res.foreach(r => println(r.exec))
+      val res = services.programService.getActiveProgramByUserId(1)
+      res.foreach(r => println(r))
     }
   }
 

@@ -15,6 +15,6 @@ trait ExerciseQueries {
       (we, e) <- workouts2Exercises.
         join(exercises).on((we, e) => e.id === we.exerciseId)
     } yield (we, e)
-    q.filter{case (we, e) => we.workoutId inSet ids }.map {case  (we, e) => (we.workoutId, e.id, e.name) }
+    q.filter { case (we, e) => we.workoutId inSetBind ids }.map { case (we, e) => (we.workoutId, e.id, e.name) }
   }
 }

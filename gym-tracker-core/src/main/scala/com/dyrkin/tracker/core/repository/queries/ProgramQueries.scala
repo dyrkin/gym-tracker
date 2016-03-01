@@ -11,19 +11,9 @@ import com.dyrkin.tracker.core.driver.AgnosticDriver.api._
 trait ProgramQueries {
   self: DatabaseSupport =>
 
-  //  def getActiveProgramByUserId(id: Long) = {
-  //     val q = for {
-  //       ((((p, wp), w), we), e) <- programs.
-  //         joinLeft(workouts2Programs).on((p, wp) => p.id === wp.programId).
-  //         joinLeft(workouts).on((p_wp, w) => p_wp._2.map(_.workoutId) === w.id).
-  //         joinLeft(workouts2Exercises).on((p_wp_w, we) => p_wp_w._2.map(_.id) === we.workoutId).
-  //         joinLeft(exercises).on((p_wp_w_we, e) => p_wp_w_we._2.map(_.exerciseId) === e.id)
-  //
-  //     } yield (p, w, e)
-  //    q.filter(v => v._1.isActive === 1 && v._1.userId === id)
-  //  }
+  val getActiveProgramByUserIdCompiled = Compiled(getActiveProgramByUserId _)
 
-  def getActiveProgramByUserId(id: Long) = {
+  private def getActiveProgramByUserId(id: Rep[Long]) = {
     val q = for {
       p <- programs
     } yield p

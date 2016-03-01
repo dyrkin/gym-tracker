@@ -11,7 +11,9 @@ import com.dyrkin.tracker.core.repository.Tables._
 trait WorkoutQueries {
   self: DatabaseSupport =>
 
-  def getWorkoutsByProgramId(id: Long) = {
+  val getWorkoutsByProgramIdCompiled = Compiled(getWorkoutsByProgramId _)
+
+  def getWorkoutsByProgramId(id: Rep[Long]) = {
     val q = for {
       (w, wp) <- workouts.
         join(workouts2Programs).on((w, wp) => w.id === wp.workoutId)

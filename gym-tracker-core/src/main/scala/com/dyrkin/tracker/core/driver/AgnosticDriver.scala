@@ -3,22 +3,25 @@ package com.dyrkin.tracker.core.driver
 /**
   * @author eugene zadyra
   */
+
 import com.typesafe.config.ConfigFactory
 
 import slick.driver.{H2Driver, JdbcDriver, MySQLDriver, PostgresDriver}
+
+import scala.util.Try
 
 object AgnosticDriver {
 
   val api = profile.api
 
   lazy val profile: JdbcDriver = {
-    sys.env.get("DB_ENVIRONMENT") match {
-      case Some(e) => ConfigFactory.load().getString(s"$e.driver") match {
+    val config = ConfigFactory.load()
+    Try(config.getString("database-ref")) map { ref =>
+      config.getString(s"$ref.driver") match {
         case "org.h2.Driver" => H2Driver
-        case "slick.driver.MySQLDriver$" => MySQLDriver
-        case "slick.driver.PostgresDriver$" => PostgresDriver
+        case "com.mysql.jdbc.Driver" => MySQLDriver
+        case "org.postgresql.Driver" => PostgresDriver
       }
-      case _ => H2Driver
-    }
+    } getOrElse H2Driver
   }
 }

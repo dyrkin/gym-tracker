@@ -1,20 +1,22 @@
 package com.dyrkin.tracker.web
 
-import org.scalatra.scalate.ScalateSupport
+import org.json4s.{DefaultFormats, Formats}
+import org.scalatra.ScalatraServlet
+import org.scalatra.json._
 
 /**
   * @author eugene zadyra
   */
-trait WatchApi extends ScalateSupport {
-  self: ServicesAware =>
+trait WatchApi extends JacksonJsonSupport {
+  self: ServicesAware with ScalatraServlet =>
+
+  override protected implicit lazy val jsonFormats: Formats = DefaultFormats
+
+  before() {
+    contentType = formats("json")
+  }
+
   get("/") {
-    <html>
-      <body>
-        <h1>Hello, world!</h1>
-        Say
-        <a href="hello-scalate">hello to Scalate</a>
-        .
-      </body>
-    </html>
+    services.programService.getActiveProgramByUserId(1)
   }
 }

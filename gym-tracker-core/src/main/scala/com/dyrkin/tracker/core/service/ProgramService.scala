@@ -4,6 +4,7 @@ import com.dyrkin.tracker.core.driver.AgnosticDriver.api._
 import com.dyrkin.tracker.core.repository.queries.{ExerciseQueries, WorkoutQueries, ProgramQueries, Queries}
 import com.dyrkin.tracker.core.vo.{Workout, Exercise, Program}
 import scala.concurrent.ExecutionContext.Implicits.global
+import com.dyrkin.tracker.core.util._
 
 import scala.concurrent.Future
 
@@ -14,11 +15,11 @@ class ProgramService(implicit val db: Database) {
   val queries = new Queries with ProgramQueries with WorkoutQueries with ExerciseQueries
 
   private def activeProgrammByUserId(id: Long) = {
-    db.run(queries.getActiveProgramByUserId(id).result)
+    db.run(queries.getActiveProgramByUserIdCompiled(id).result)
   }
 
   private def workoutsByProgramId(id: Long) = {
-    db.run(queries.getWorkoutsByProgramId(id).result)
+    db.run(queries.getWorkoutsByProgramIdCompiled(id).result)
   }
 
   private def exersisesByWorkoutIds(ids: Seq[Long]) = {
@@ -26,7 +27,7 @@ class ProgramService(implicit val db: Database) {
   }
 
   def getActiveProgramByUserId(id: Long) = {
-    val res = activeProgrammByUserId(id).map {
+    val programsFuture = activeProgrammByUserId(id).map {
       programs => programs.map { case (pId, pName) => workoutsByProgramId(pId).flatMap {
         workouts => exersisesByWorkoutIds(workouts.map(_._1)).flatMap {
           exersises =>
@@ -37,7 +38,6 @@ class ProgramService(implicit val db: Database) {
       }
       }
     }
-    println(res)
-    res
+    programsFuture.exec.map(_.exec)
   }
 }
