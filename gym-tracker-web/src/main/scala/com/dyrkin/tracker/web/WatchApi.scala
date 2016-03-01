@@ -8,15 +8,9 @@ import org.scalatra.json._
   * @author eugene zadyra
   */
 trait WatchApi extends JacksonJsonSupport {
-  self: ServicesAware with ScalatraServlet =>
+  self: ServicesAware with JsonSupport =>
 
-  override protected implicit lazy val jsonFormats: Formats = DefaultFormats
-
-  before() {
-    contentType = formats("json")
-  }
-
-  get("/") {
+  get("/api/program") {
     services.programService.getActiveProgramByUserId(1)
   }
 }

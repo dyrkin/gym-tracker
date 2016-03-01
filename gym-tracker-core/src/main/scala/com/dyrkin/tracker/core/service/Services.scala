@@ -10,10 +10,14 @@ trait ServicesT {
   implicit def db: Database
 
   def programService: ProgramService
+
+  def userService: UserService
 }
 
 class Services extends ServicesT {
   implicit val db = Database.forConfig("db")
 
   val programService = new ProgramService
+
+  val userService = new UserService
 }

@@ -8,12 +8,30 @@ import slick.lifted.Tag
   */
 object Tables {
 
-  class User(tag: Tag) extends Table[(Long, String)](tag, "USER") {
+  class Pin(tag: Tag) extends Table[(Long, Long, Long)](tag, "PIN") {
+    def pin = column[Long]("RAND_PIN", O.PrimaryKey)
+
+    def time = column[Long]("TIME_CREATED")
+
+    def userId = column[Long]("USER_ID")
+
+    def user = foreignKey("P_USER_FK", userId, users)(_.id)
+
+    def * = (pin, time, userId)
+  }
+
+  lazy val pins = TableQuery[Pin]
+
+  class User(tag: Tag) extends Table[(Long, String, String, String)](tag, "USER") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("NAME")
 
-    def * = (id, name)
+    def email = column[String]("EMAIL")
+
+    def hash = column[String]("HASH")
+
+    def * = (id, name, email, hash)
   }
 
   lazy val users = TableQuery[User]

@@ -7,6 +7,7 @@ import org.scalatra.scalate.ScalateSupport
 /**
   * @author eugene zadyra
   */
-class Routes(val services: ServicesT) extends ScalatraServlet with ScalateSupport with ServicesAware with WatchApi {
+class JsonRoutes(val services: ServicesT) extends ScalatraServlet with ScalateSupport with JsonSupport with ServicesAware
+  with WatchApi with UserController {
 
 }
