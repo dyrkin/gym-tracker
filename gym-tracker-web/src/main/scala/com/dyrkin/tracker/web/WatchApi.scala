@@ -13,4 +13,21 @@ trait WatchApi extends JacksonJsonSupport {
   get("/api/program") {
     services.programService.getActiveProgramByUserId(1)
   }
+
+  get("/api/user_data") {
+    val pin = params("pin")
+  }
+
+  get("/api/validate") {
+    val pin = params("pin")
+
+    services.userService.getUserDetailsByPin(pin.toInt)
+  }
+
+  get("/api/remove_pin") {
+    val pin = params("pin")
+
+    services.pinService.removePin(pin.toInt)
+    response.setStatus(200)
+  }
 }

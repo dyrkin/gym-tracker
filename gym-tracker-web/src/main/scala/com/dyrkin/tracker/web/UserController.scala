@@ -2,6 +2,7 @@ package com.dyrkin.tracker.web
 
 import com.dyrkin.tracker.core.vo.Value
 import org.scalatra.json.JacksonJsonSupport
+import com.dyrkin.tracker.core.util._
 
 /**
   * @author eugene zadyra
@@ -9,11 +10,12 @@ import org.scalatra.json.JacksonJsonSupport
 trait UserController extends JacksonJsonSupport {
   self: ServicesAware with JsonSupport =>
 
-  get("/user/add") {
+  get("/user/register") {
     val userName = params("name")
     val email = params("email")
     val pHash = params("phash")
-    val pin = services.userService.addNewUser(userName, email, pHash)
-    Value(pin)
+
+    services.userService.addNewUserAndReturnPin(userName, email, pHash, uuid)
+
   }
 }

@@ -1,9 +1,10 @@
 package com.dyrkin.tracker.core
 
-import java.util.Date
+import java.util.{UUID, Date}
 
 import scala.concurrent.duration.Duration
 import scala.concurrent.{Await, Future}
+import scala.util.Try
 
 /**
   * @author eugene zadyra
@@ -14,4 +15,10 @@ package object util {
   }
 
   def current = new Date()
+
+  def uuid = UUID.randomUUID().toString
+
+  def safe[T](f: => T): Option[T] = {
+    Try(f).toOption
+  }
 }

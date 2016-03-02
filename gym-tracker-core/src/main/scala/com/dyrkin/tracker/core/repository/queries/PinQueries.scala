@@ -10,7 +10,7 @@ import com.dyrkin.tracker.core.repository.Tables._
 trait PinQueries {
   self: DatabaseSupport =>
 
-  def getUniquePin = {
+  def uniquePin = {
     sql"""
        SELECT random_num
        FROM (
@@ -27,4 +27,13 @@ trait PinQueries {
   def savePin(pin: Int, time: Long, userId: Long) = {
     pins += (pin, time, userId)
   }
+
+  def userIdAndTimeByPin(pin: Int) = {
+    pins.filter(_.pin === pin).map{p => (p.userId, p.time)}
+  }
+
+  def removePin(pin: Int) = {
+    pins.filter(_.pin === pin).delete
+  }
+
 }

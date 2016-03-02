@@ -12,6 +12,8 @@ trait ServicesT {
   def programService: ProgramService
 
   def userService: UserService
+
+  def pinService: PinService
 }
 
 class Services extends ServicesT {
@@ -20,4 +22,6 @@ class Services extends ServicesT {
   val programService = new ProgramService
 
   val userService = new UserService
+
+  val pinService = new PinService
 }
