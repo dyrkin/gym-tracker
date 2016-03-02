@@ -43,14 +43,24 @@ object Tables {
 
     def name = column[String]("NAME")
 
-    def userId = column[Long]("USER_ID")
+    def exerciseTypeId = column[Long]("EXERCISE_TYPE_ID")
 
-    def user = foreignKey("E_USER_FK", userId, users)(_.id)
+    def exerciseType = foreignKey("E_EXERCISE_TYPE_FK", exerciseTypeId, exerciseTypes)(_.id)
 
-    def * = (id, name, userId)
+    def * = (id, name, exerciseTypeId)
   }
 
   lazy val exercises = TableQuery[Exercise]
+
+  class ExerciseType(tag: Tag) extends Table[(Long, String)](tag, "EXERCISE_TYPE") {
+    def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
+
+    def name = column[String]("NAME")
+
+    def * = (id, name)
+  }
+
+  lazy val exerciseTypes = TableQuery[ExerciseType]
 
   class Workout(tag: Tag) extends Table[(Long, String)](tag, "WORKOUT") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
@@ -90,15 +100,31 @@ object Tables {
 
   lazy val workouts2Programs = TableQuery[WorkoutProgram]
 
-  class Calendar(tag: Tag) extends Table[(Long, String)](tag, "CALENDAR") {
+  class Calendar(tag: Tag) extends Table[(Long, Long)](tag, "CALENDAR") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
-    def name = column[String]("NAME")
+    def workoutId = column[Long]("WORKOUT_ID")
 
-    def * = (id, name)
+    def workout = foreignKey("C_WORKOUT_FK", workoutId, workouts)(_.id)
+
+    def * = (id, workoutId)
   }
 
   lazy val calendars = TableQuery[Calendar]
+
+  class DayOfWeek(tag: Tag) extends Table[(Long, Int, Long)](tag, "DAY_OF_WEEK") {
+    def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
+
+    def day = column[Int]("DAY")
+
+    def calendarId = column[Long]("CALENDAR_ID")
+
+    def calendar = foreignKey("D_CALENDAR_FK", calendarId, calendars)(_.id)
+
+    def * = (id, day, calendarId)
+  }
+
+  lazy val daysOfWeek = TableQuery[DayOfWeek]
 
   class Program(tag: Tag) extends Table[(Long, String, Int, Long)](tag, "PROGRAM") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
