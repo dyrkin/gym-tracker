@@ -26,7 +26,7 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>src/main/monkeyc</sourceDirectory>
+        <sourceDirectory>sources</sourceDirectory>
         <plugins>
             <plugin>
                 <groupId>com.dyrkin.monkeyc.plugin</groupId>
