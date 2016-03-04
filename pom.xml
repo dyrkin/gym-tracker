@@ -12,10 +12,11 @@
     <modules>
         <module>gym-tracker-core</module>
         <module>gym-tracker-web</module>
+        <module>gym-tracker-watch-app</module>
     </modules>
 
     <properties>
-
+        <monkeyc.home>/Volumes/Data/Users/unkind/Documents/j2ee/software/garmin/connectiq-sdk-mac-1.2.5</monkeyc.home>
     </properties>
 
     <pluginRepositories>
