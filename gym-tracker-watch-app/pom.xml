@@ -27,6 +27,14 @@
 
     <build>
         <sourceDirectory>sources</sourceDirectory>
+        <resources>
+            <resource>
+                <directory>resources</directory>
+            </resource>
+            <resource>
+                <directory>resources-eng</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>com.dyrkin.monkeyc.plugin</groupId>
