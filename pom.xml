@@ -52,7 +52,8 @@
                 <module>gym-tracker-web</module>
             </modules>
             <properties>
-                <java.path>C:\Program Files\Java\jdk1.8.0_73\bin</java.path>
+                <!--<java.path>C:\Program Files\Java\jdk1.8.0_73\bin</java.path>-->
+                <java.path>/usr/lib/jvm/java-7-oracle/</java.path>
             </properties>
             <activation>
                 <property>

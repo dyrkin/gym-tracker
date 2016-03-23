@@ -43,4 +43,7 @@ class UserService(implicit val db: Database) {
     }
   }
 
+  def getUserDetailsById(id: Long) = {
+   db.run(queries.userDetailsById(id).result).exec.headOption.getOrElse(sys.error("User with id: "+ id+ " not found"))
+  }
 }

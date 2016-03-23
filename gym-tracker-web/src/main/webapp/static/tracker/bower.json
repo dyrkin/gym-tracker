@@ -1,0 +1,33 @@
+{
+  "name": "gym-tracker",
+  "version": "0.0.0",
+  "description": "Cablevision SMART General Processing Application",
+  "authors": [
+    "eugene zadyra <untrance@gmail.com> , ihor zadyra <zadyra.i@gmail.com> "
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "html5shiv": "~3.7.3",
+    "respond": "~1.4.2",
+    "angular-route": "~1.4.7",
+    "angular-bootstrap": "~0.14.2",
+    "angular-cookies": "~1.4.7",
+    "angular-animate": "~1.4.7",
+    "angular-spinner": "~0.7.0",
+    "ngUpload": "~0.5.17",
+    "checklist-model": "~0.6.0",
+    "angular-placeholder-tai": "~1.0.3",
+    "ng-idle": "~1.1.1",
+    "ng-focus-if": "~1.0.2",
+    "ng-device-detector": "~2.0.2"
+  }
+}
