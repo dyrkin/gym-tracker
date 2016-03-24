@@ -1,6 +1,6 @@
 angular.module('app.models', ['ngResource'])
-    .factory('User', ['$resource', 'APP', '$rootScope', '$window', '$route', '$q', '$http', '$location', 'CONTEXT',
-        function ($resource, APP, $rootScope, $window, $route, $q, $http, $location, CONTEXT) {
+    .factory('User', ['$resource', 'APP', '$rootScope', '$window', '$route', '$q', '$http', '$location', 'CONTEXT', 'PopupService',
+        function ($resource, APP, $rootScope, $window, $route, $q, $http, $location, CONTEXT, PopupService) {
 
             var currentUserInstance = undefined;
             var User = $resource(CONTEXT, {}, {
@@ -38,10 +38,11 @@ angular.module('app.models', ['ngResource'])
                     .then(
                         function (response) {
                             if (!(response || response == 401)) {
+
                                 return;
                             }
                             $rootScope.currentUser = {
-                                login: response._1,
+                                name: response._1,
                                 email: response._2,
                                 pin: response._3
                             };
@@ -65,7 +66,7 @@ angular.module('app.models', ['ngResource'])
             User.prototype.logout = function () {
                 var self = this;
                 initUser(self);
-                $window.location.href = $window.location.protocol + "//" + $window.location.host + "/" + "logout";
+                $window.location.href = $window.location.protocol + "//" + $window.location.host + "/json/user/" + "logout";
             };
 
             var getHomePath = function () {

@@ -1,1 +1,1 @@
-angular.module('app.controllers', ['ngMap', 'smart-table']);
+angular.module('app.controllers', []);

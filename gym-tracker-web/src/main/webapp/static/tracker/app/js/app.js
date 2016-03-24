@@ -1,12 +1,13 @@
 'use strict';
 
-var myApp = angular.module('gymTracker', [
+var myApp = angular.module('gymTrackerApp', [
     'app.config',
     'app.controllers',
     'app.models',
     'app.route',
     'ui.bootstrap',
-    'ng'
+    'ng',
+    'toaster'
 
 ]).run(['$rootScope', 'User', '$route', '$location', 'CONTEXT', 'APP',
     function ($rootScope, User, $route, $location, CONTEXT, APP) {
