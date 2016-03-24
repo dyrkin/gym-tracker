@@ -1,5 +1,8 @@
 # Bower Components
-/bower_components
+node_modules
+.tmp
+.sass-cache
+bower_components
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio
