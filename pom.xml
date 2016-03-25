@@ -9,16 +9,6 @@
     <packaging>pom</packaging>
     <name>gym-tracker</name>
 
-    <modules>
-        <module>gym-tracker-core</module>
-        <module>gym-tracker-web</module>
-        <module>gym-tracker-watch-app</module>
-    </modules>
-
-    <properties>
-        <monkeyc.home>/Volumes/Data/Users/unkind/Documents/j2ee/software/garmin/connectiq-sdk-mac-1.2.5</monkeyc.home>
-    </properties>
-
     <pluginRepositories>
 
     </pluginRepositories>
@@ -26,6 +16,52 @@
     <repositories>
 
     </repositories>
+
+    <profiles>
+        <profile>
+            <id>prod</id>
+            <activation>
+                <property>
+                    <name>!prod</name>
+                </property>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>eugene</id>
+            <modules>
+                <module>gym-tracker-core</module>
+                <module>gym-tracker-web</module>
+                <module>gym-tracker-watch-app</module>
+            </modules>
+            <properties>
+                <java.path>/Library/Java/JavaVirtualMachines/jdk1.8.5.jdk/Contents/Home/bin/</java.path>
+                <monkeyc.home>/Volumes/Data/Users/unkind/Documents/j2ee/software/garmin/connectiq-sdk-mac-1.2.5</monkeyc.home>
+            </properties>
+            <activation>
+                <property>
+                    <name>!eugene</name>
+                </property>
+            </activation>
+        </profile>
+
+        <profile>
+            <id>ihor</id>
+            <modules>
+                <module>gym-tracker-core</module>
+                <module>gym-tracker-web</module>
+            </modules>
+            <properties>
+                <!--<java.path>C:\Program Files\Java\jdk1.8.0_73\bin</java.path>-->
+                <java.path>/usr/lib/jvm/java-7-oracle/</java.path>
+            </properties>
+            <activation>
+                <property>
+                    <name>!ihor</name>
+                </property>
+            </activation>
+        </profile>
+    </profiles>
 
     <dependencyManagement>
         <dependencies>
@@ -45,16 +81,16 @@
                 <version>2.11.7</version>
             </dependency>
             <dependency>
-              <groupId>org.scalactic</groupId>
-              <artifactId>scalactic_2.11</artifactId>
-              <version>2.2.6</version>
+                <groupId>org.scalactic</groupId>
+                <artifactId>scalactic_2.11</artifactId>
+                <version>2.2.6</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
-              <groupId>org.scalatest</groupId>
-              <artifactId>scalatest_2.11</artifactId>
-              <version>2.2.6</version>
-              <scope>test</scope>
+                <groupId>org.scalatest</groupId>
+                <artifactId>scalatest_2.11</artifactId>
+                <version>2.2.6</version>
+                <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>com.typesafe.slick</groupId>
@@ -80,9 +116,9 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-            	<groupId>mysql</groupId>
-            	<artifactId>mysql-connector-java</artifactId>
-            	<version>5.1.38</version>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>5.1.38</version>
             </dependency>
             <dependency>
                 <groupId>com.typesafe.slick</groupId>
@@ -95,19 +131,19 @@
                 <version>2.4.3</version>
             </dependency>
             <dependency>
-              <groupId>org.slf4j</groupId>
-              <artifactId>slf4j-api</artifactId>
-              <version>1.6.4</version>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>1.6.4</version>
             </dependency>
             <dependency>
-              <groupId>ch.qos.logback</groupId>
-              <artifactId>logback-classic</artifactId>
-              <version>1.1.3</version>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>1.1.3</version>
             </dependency>
             <dependency>
-              <groupId>ch.qos.logback</groupId>
-              <artifactId>logback-core</artifactId>
-              <version>1.1.3</version>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>1.1.3</version>
             </dependency>
             <dependency>
                 <groupId>org.scalatra</groupId>
@@ -182,7 +218,7 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.5.1</version>
                 <configuration>
-                    <executable>/Library/Java/JavaVirtualMachines/jdk1.8.5.jdk/Contents/Home/bin/</executable>
+                    <executable>${java.path}</executable>
                     <source>1.7</source>
                     <target>1.7</target>
                 </configuration>

@@ -1,9 +1,8 @@
 import javax.servlet.ServletContext
 
 import com.dyrkin.tracker.core.service.Services
-import com.dyrkin.tracker.web.JsonRoutes
+import com.dyrkin.tracker.web.{HtmlRoutes, JsonRoutes}
 import org.scalatra.LifeCycle
-import slick.jdbc.JdbcBackend._
 
 /**
   * @author eugene zadyra
@@ -14,6 +13,7 @@ class ScalatraBootstrap extends LifeCycle {
 
   override def init(context: ServletContext) {
     context mount(new JsonRoutes(services), "/json/*")
+    context mount(new HtmlRoutes, "/")
   }
 
   override def destroy(context: ServletContext) {

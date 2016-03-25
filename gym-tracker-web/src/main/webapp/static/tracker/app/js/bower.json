@@ -1,0 +1,29 @@
+{
+  "name": "gym-tracker",
+  "version": "0.0.0",
+  "description": "API For Watch",
+  "authors": [
+    "eugene zadyra <untrance@gmail.com> , ihor zadyra <zadyra.i@gmail.com> "
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.7",
+    "jquery": "~2.1.4",
+    "bootstrap": "~3.3.5",
+    "html5shiv": "~3.7.3",
+    "respond": "~1.4.2",
+    "angular-route": "~1.4.7",
+    "angular-bootstrap": "~0.14.2",
+    "angular-cookies": "~1.4.7",
+    "angular-animate": "~1.4.7",
+    "angular-spinner": "~0.7.0",
+    "angular-resource": "~1.5.2",
+    "AngularJS-Toaster": "angularjs-toaster#^1.2.0"
+  }
+}

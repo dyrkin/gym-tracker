@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="Absolute-Center is-Responsive">
+            <div id="logo-container"></div>
+            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                <div  ng-show="errorMessage" class="alert alert-danger" role="alert"> {{errorMessage}}</div>
+                <form  name="loginForm">
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <input class="form-control" type="text" id="username"  ng-model="user.email"
+                               placeholder="Email address" required="true"/>
+                    </div>
+                    <div class="form-group input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <input class="form-control" type="password" id="password"  ng-model="user.password" required="true" min="4" max="10"
+                               placeholder="Password"/>
+                    </div>
+                    <div class="checkbox">
+                        <label>
+                            <input type="checkbox"> I agree to the <a href="#">Terms and Conditions</a>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <button type="button" class="btn btn-def btn-block" ng-click="loginUser(loginForm.$valid)">Login</button>
+                    </div>
+                    <div class="form-group text-center">
+                        <a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#/registration">Registration</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
