@@ -1,33 +1,154 @@
-<div class="container">
-    <div class="row">
-        <div class="Absolute-Center is-Responsive">
-            <div id="logo-container"></div>
-            <div class="col-sm-12 col-md-10 col-md-offset-1">
-                <div  ng-show="errorMessage" class="alert alert-danger" role="alert"> {{errorMessage}}</div>
-                <form  name="loginForm">
-                    <div class="form-group input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        <input class="form-control" type="text" id="username"  ng-model="user.email"
-                               placeholder="Email address" required="true"/>
-                    </div>
-                    <div class="form-group input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                        <input class="form-control" type="password" id="password"  ng-model="user.password" required="true" min="4" max="10"
-                               placeholder="Password"/>
-                    </div>
-                    <div class="checkbox">
-                        <label>
-                            <input type="checkbox"> I agree to the <a href="#">Terms and Conditions</a>
-                        </label>
-                    </div>
-                    <div class="form-group">
-                        <button type="button" class="btn btn-def btn-block" ng-click="loginUser(loginForm.$valid)">Login</button>
-                    </div>
-                    <div class="form-group text-center">
-                        <a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#/registration">Registration</a>
-                    </div>
-                </form>
+<header class="header" xmlns:th="http://www.w3.org/1999/xhtml">
+    <div class="container">
+        <a class="logo" href="/"><img src="/static/tracker/app/images/garmin.gif" alt="logo"></a>
+        <button class="btn btn-default-light pull-right" data-toggle="modal" data-target="#myLoginModal">Login</button>
+        <button class="btn btn-default-light pull-right" data-toggle="modal" data-target="#myLoginModal">Registration</button>
+    </div>
+</header><!-- /top-bar -->
+
+<div class="content-wrap">
+    <div class="content">
+        <section class="first-section">
+            <div class="container">
+                <div class="text-wrap">
+                    <!--<h1>Be sure that your device<br> are controlled from<br> everywhere</h1>-->
+                    <!--<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myLoginModal">Sign Up</button>-->
+                    <!--<button class="btn btn-default-light btn-lg">Watch a Video</button>-->
+                </div>
             </div>
+        </section>
+    </div>
+
+</div><!-- /content-wrap -->
+
+<!-- Modal -->
+<!--<div class="modal fade" id="myLoginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
+    <!--<div class="modal-dialog modal-sm">-->
+        <!--<div class="modal-content">-->
+            <!--<div class="modal-header">-->
+                <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span-->
+                        <!--aria-hidden="true">&times;</span></button>-->
+                <!--<h3 class="modal-title">Sign Up</h3>-->
+            <!--</div>-->
+            <!--<div class="modal-body">-->
+                <!--<h5>via social</h5>-->
+                <!--<button type="submit" class="btn btn-lg btn-block btn-facebook"><span class="icon-facebook"></span>-->
+                    <!--Facebook-->
+                <!--</button>-->
+
+                <!--<h5>or using email</h5>-->
+                <!--<form class="">-->
+                    <!--<label for="inputName" class="sr-only control-label">Full Name</label>-->
+                    <!--<input type="text" class="form-control" id="inputName" placeholder="Full Name">-->
+
+                    <!--<label for="inputEmail" class="sr-only control-label">E-mail</label>-->
+                    <!--<input type="email" class="form-control" id="inputEmail" placeholder="E-mail">-->
+
+                    <!--<label class="sr-only control-label">Password</label>-->
+                    <!--<input type="password" class="form-control" placeholder="Password">-->
+
+                <!--</form>-->
+            <!--</div>-->
+            <!--<div class="modal-footer">-->
+                <!--<button type="submit" class="btn btn-primary btn-block disabled" data-dismiss="modal">Sign Up</button>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+<!-- Modal -->
+<div id="myLoginModal" class="modal fide in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-landing-sm">
+        <div class="modal-content" style="background-color: rgb(245, 245, 245)">
+            <div class="modal-header" >
+                <button id="closeModalBtn" type="button" class="close" data-dismiss="modal" aria-label="Close" ><span aria-hidden="true">&times;</span></button>
+                <h5><img style="height: 60px; width: 200px;" class="login-logo" src="/static/tracker/app/images/logo_registration.jpg" alt=""/></h5>
+            </div>
+            <form name="signUpForm" class=""  action="/" method="POST">
+                <div class="modal-body">
+                    <h5><span >Start using Gym-Tracker</span></h5>
+                    <h5><span >for management of your Garmin Fenix 3</span></h5>
+
+                    <h5>
+                        <a href="/auth/facebook?scope=email">
+                            <img class="fb-login-icon-reg" src="/static/tracker/app/images/sign-up-with-facebook.png"/>
+                        </a>
+                    </h5>
+                    <p></p>
+                    <h5>or using email</h5>
+                    <p></p>
+                    <div class="alert alert-success text-center" role="alert" style="display: none"
+                         ></div>
+                    <br/>
+
+
+                    <input required="required" type="email" name="email"  id="inputEmail" class="form-control"
+                           placeholder="E-Mail Address" /><br/>
+
+                    <input required="required" type="text" name="name"  id="inputName"
+                           class="form-control" placeholder="Name"/><br/>
+
+                    <input required="required" type="password" ng-model="password" name="password" id="inputPassword"
+                           class="form-control" placeholder="Enter password"/><br/>
+
+                    <input required="required" type="password" ng-model="confirmPassword" name="confirmPassword" id="inputConfirmPassword"
+                           class="form-control" placeholder="Confirm password"/><br/>
+
+                    <p class="clearfix">
+                    <h5>
+                        <span>By registering, you are agreeing to our</span>
+                        <a href="/conditions">Terms</a>
+                        <span>of Service and Privacy Policy</span>
+                    </h5>
+                    </p>
+
+                    <!--
+                                            <label class="sr-only control-label">Password</label>
+                                            <input type="password" class="form-control" placeholder="Password"/>
+                    -->
+                    <div class="alert alert-danger text-center" role="alert"  style="display: none"></div>
+                </div>
+
+                <div class="modal-footer">
+                    <button ng-disabled="signUpForm.$invalid || signUpForm.$pending" type="submit" class="btn btn-primary btn-block" ><span>Register</span></button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+
+<!--<div class="container">-->
+<!--<div class="row">-->
+<!--<div class="Absolute-Center is-Responsive">-->
+<!--<div id="logo-container"></div>-->
+<!--<div class="col-sm-12 col-md-10 col-md-offset-1">-->
+<!--<div  ng-show="errorMessage" class="alert alert-danger" role="alert"> {{errorMessage}}</div>-->
+<!--<form  name="loginForm">-->
+<!--<div class="form-group input-group">-->
+<!--<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>-->
+<!--<input class="form-control" type="text" id="username"  ng-model="user.email"-->
+<!--placeholder="Email address" required="true"/>-->
+<!--</div>-->
+<!--<div class="form-group input-group">-->
+<!--<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>-->
+<!--<input class="form-control" type="password" id="password"  ng-model="user.password" required="true" min="4" max="10"-->
+<!--placeholder="Password"/>-->
+<!--</div>-->
+<!--<div class="checkbox">-->
+<!--<label>-->
+<!--<input type="checkbox"> I agree to the <a href="#">Terms and Conditions</a>-->
+<!--</label>-->
+<!--</div>-->
+<!--<div class="form-group">-->
+<!--<button type="button" class="btn btn-def btn-block" ng-click="loginUser(loginForm.$valid)">Login</button>-->
+<!--</div>-->
+<!--<div class="form-group text-center">-->
+<!--<a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#/registration">Registration</a>-->
+<!--</div>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->

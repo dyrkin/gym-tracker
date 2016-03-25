@@ -8,26 +8,15 @@
 <link  th:href="@{/static/tracker/app/js/bower_components/AngularJS-Toaster/toaster.css}" href="/static/tracker/app/js/bower_components/AngularJS-Toaster/toaster.css" rel="stylesheet"/>
 <link  th:href="@{/static/tracker/app/js/bower_components/bootstrap/dist/css/bootstrap.css}" href="/static/tracker/app/js/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
 <link  th:href="@{/static/tracker/app/css/styles.css}" href="/static/tracker/app/css/styles.css" rel="stylesheet"/>
+
+<link href="/static/tracker/app/css/styles.css" rel="stylesheet">
+<link href="/static/tracker/app/css/selectize.bootstrap3.css" rel="stylesheet">
+<link href="/static/tracker/app/css/landing.css" rel="stylesheet">
 </head>
 
 <body>
     <toaster-container></toaster-container>
-
-    <nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="#">WebSiteName</a>
-        </div>
-        <ul class="nav navbar-nav">
-            <li class="active"><a href="#">Home</a></li>
-            <li><a href="#">Page 1</a></li>
-            <li><a href="#">Page 2</a></li>
-            <li><a href="#">Page 3</a></li>
-        </ul>
-    </div>
-    </nav>
-
-    <div class="content-wrap" >
+    <div class="content-wrap" style="background-color: #000000;!Important" >
     <div class="content" ng-view="true">
 
     </div><!-- /content -->
@@ -53,6 +42,16 @@
     <script type="text/javascript" th:src="@{/static/tracker/app/js/controllers/loginCtrl.js}" src="/static/tracker/app/js/controllers/loginCtrl.js"></script>
     <script type="text/javascript" th:src="@{/static/tracker/app/js/controllers/registrationCtrl.js}" src="/static/tracker/app/js/controllers/registrationCtrl.js"></script>
     <script type="text/javascript" th:src="@{/static/tracker/app/js/servises/popup.js}" src="/static/tracker/app/js/servises/popup.js"></script>
+
+    <script type="text/javascript">
+
+    $(document).ready(function() {
+
+    // custom select
+    $('select').selectize();
+
+    });
+    </script>
 
 </body>
 </html>

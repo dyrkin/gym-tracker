@@ -7,4 +7,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
     <listener>
         <listener-class>org.scalatra.servlet.ScalatraListener</listener-class>
     </listener>
+    <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
 </web-app>

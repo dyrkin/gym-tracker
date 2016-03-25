@@ -1,0 +1,19 @@
+/* Styles for IE lower or equal to 9 which do not support placeholder with custom select "selectize" */
+/* For each placeholder you have to dublicate it in this file */
+
+.placeholderForIeOld1 .selectize-input:not(.has-items):before {
+    content:"Select Application...";
+    color: #aaa;
+}
+.placeholderForIeOld2 .selectize-input:not(.has-items):before {
+    content:"Select Schedule...";
+    color: #aaa;
+}
+.placeholderForIeOld3 .selectize-input:not(.has-items):before {
+    content:"Limit Daily Use";
+    color: #aaa;
+}
+.placeholderForIeOld4 .selectize-input:not(.has-items):before {
+    content:"Hours";
+    color: #aaa;
+}
