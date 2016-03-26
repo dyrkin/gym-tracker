@@ -9,6 +9,7 @@ angular.module('app.config', [])
 
 
         authenticatePath: "/json/user/authenticate",
+        userRegistrationPath: "/json/user/register",
 
         /*Path to UserController*/
         currentUserPath: "/json/user/current"

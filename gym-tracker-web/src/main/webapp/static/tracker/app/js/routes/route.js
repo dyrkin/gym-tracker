@@ -5,7 +5,7 @@ angular.module('app.route', ['ngRoute'])
             $routeProvider
                 .when('/login', {
                     templateUrl: CONTEXTProvider.$get() + '/static/tracker/app/views/login.html',
-                    controller: 'LoginController'
+                    controller: 'AuthenticationController'
                 })
                 .when('/registration', {
                     templateUrl: CONTEXTProvider.$get() + '/static/tracker/app/views/registration.html',

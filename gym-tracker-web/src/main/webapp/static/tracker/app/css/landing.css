@@ -54,7 +54,9 @@
 }
 
 
-
+input:invalid {
+	border: 1px solid red;
+}
 
 /* Main Styles */
 html, body {
@@ -177,7 +179,7 @@ h1{
 
 /* Content */
 .content{
-	bottom: 64px;
+	bottom: 40px;
 	margin: 0;
 }
 
@@ -356,6 +358,11 @@ img.fb-login-icon-reg {
 	/*margin: 5px 0 10px 30px;*/
 }
 
+img.fb-login-icon-login {
+	width: 175px;
+	/*height: 50px;*/
+	/*margin: 5px 0 10px 30px;*/
+}
 .modal-landing-sm {
 	width: 370px;
 }

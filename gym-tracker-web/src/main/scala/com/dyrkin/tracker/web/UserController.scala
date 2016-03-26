@@ -18,7 +18,7 @@ trait UserController extends JacksonJsonSupport {
 
   post("/user/authenticate") {
     val user = parse(request.body).extract[JsonModels.UserLogin]
-    if (user.email == "admin" && user.password == "admin")
+    if (user.email == "admin@admin.com" && user.password == "admin")
       request.getSession.setAttribute("currentUser", user)
     else
       401
