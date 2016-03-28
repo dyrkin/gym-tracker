@@ -49,8 +49,6 @@ class UserService(implicit val db: Database) {
 
   def userByEmailAndPassword(email: String, password: String) : WatchUserDetails = {
    val user =  db.run(queries.userByEmailAndPassword(email, password).result).exec.headOption
-
-    println(user)
     WatchUserDetails(user.get._1, user.get._2, user.get._3)
   }
 }

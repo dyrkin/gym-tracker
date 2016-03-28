@@ -3,18 +3,16 @@ angular.module('gymTrackerApp')
         function ($routeProvider, CONTEXTProvider) {
 
             $routeProvider
-                .when('/login', {
-                    templateUrl: CONTEXTProvider.$get() + '/static/tracker/app/views/login.html',
+                .when('/', {
+                    templateUrl: CONTEXTProvider.$get() + '/static/tracker/app/views/landing.html',
                     controller: 'AuthenticationController'
-                })
-                .when('/registration', {
-                    templateUrl: CONTEXTProvider.$get() + '/static/tracker/app/views/registration.html',
-                    controller: 'RegistrationController'
                 })
                 .when('/main', {
                     templateUrl: CONTEXTProvider.$get() + '/static/tracker/app/views/main.html',
                     controller: 'MainController'
                 })
-
+                .otherwise({
+                    redirectTo: '/'
+                });
         }
     ]);

@@ -38,10 +38,11 @@
     <script type="text/javascript" src="/static/tracker/app/js/routes/route.js"></script>
     <script type="text/javascript" src="/static/tracker/app/js/controllers/mainCtrl.js"></script>
     <script type="text/javascript" src="/static/tracker/app/js/controllers/authenticationCtrl.js"></script>
-    <script type="text/javascript" src="/static/tracker/app/js/controllers/registrationCtrl.js"></script>
     <script type="text/javascript" src="/static/tracker/app/js/services/authenticationSrv.js"></script>
     <script type="text/javascript" src="/static/tracker/app/js/services/popup.js"></script>
 
+
+    <script type="text/javascript" src="/static/tracker/app/js/directives/directives.js"></script>
     <script type="text/javascript">
 
     $(document).ready(function() {

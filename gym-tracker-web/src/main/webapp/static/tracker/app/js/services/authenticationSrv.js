@@ -2,10 +2,23 @@ angular.module('gymTrackerApp')
     .service('authSrv', ['$rootScope', '$q', '$route', '$window', '$http', '$location', 'APP', 'PopupService',
         function ($rootScope, $q, $route, $window, $http, $location, APP, PopupService) {
 
-
             var authorized = false;
             var user;
             var concurrentAuthTry = false;
+
+            function getCurrentUser(email, password) {
+                return $http.get(APP.currentUserPath).success(function (data, status, headers, config) {
+                    if (status === 200) {
+                        authorized = true;
+                        user = data;
+                        angular.element("#myLoginModal").modal("hide");
+                        $location.path('/main');
+                    }
+                }).error(function (data, status, headers, config) {
+                    //   PopupService.showPopup('error', 'Internal server error', 'Try again', 1600);
+                });
+            }
+
 
             function authenticate(email, password) {
                 return $http.post(APP.authenticatePath, {
@@ -36,10 +49,12 @@ angular.module('gymTrackerApp')
                         email: email, name: name, password: password
                     }
                 ).success(function (data, status, headers, config) {
-
                     if (status === 200 || status === 201) {
+                        user = data;
 
-                        //  $scope.loginUser()
+                        console.log(user);
+                        angular.element("#myRegistrationModal").modal("hide");
+                        $location.path('/main');
                     }
                 }).error(function (data, status, headers, config) {
                     if (status === 401)
@@ -50,6 +65,16 @@ angular.module('gymTrackerApp')
                 });
             }
 
+            function unAuthenticate(idReason) {
+                return $http.get('json/user/logout')
+                    .finally(function () {
+                        user = undefined;
+                        authorized = false;
+
+                        $location.path("/");
+                    });
+            }
+
             return {
                 authorized: function () {
                     return authorized;
@@ -57,8 +82,10 @@ angular.module('gymTrackerApp')
                 getUser: function () {
                     return user;
                 },
-                //unAuthenticate : unAuthenticate,
+                unAuthenticate: unAuthenticate,
                 authenticate: authenticate,
+                registration: registrationUser,
+                getCurrentUser: getCurrentUser,
                 //menuItemAllowed : menuItemAllowed,
                 setConcurrentAuthTry: function (value) {
                     concurrentAuthTry = value;

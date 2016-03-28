@@ -13,33 +13,33 @@ trait UserController extends JacksonJsonSupport {
   get("/user/current") {
     //  services.userService.getUserDetailsById(1L) // TODO: Change it to Get current authorized user from App CONTEXT
     val currentUser = request.getSession.getAttribute("currentUser")
-    if (currentUser == null) 401 else println(currentUser)
+    if (currentUser == null) 401 else currentUser
   }
 
   post("/user/authenticate") {
     val parsedUser = parse(request.body).extract[JsonModels.UserLogin]
     val user = services.userService.userByEmailAndPassword(parsedUser.email, parsedUser.password)
 
-    println(user)
     if (user != None) {
       request.getSession.setAttribute("currentUser", user)
-    user
-  } else
+      user
+    } else
       401
   }
 
   get("/user/logout") {
 
-    request.getSession.setAttribute("currentUser", None)
+    request.getSession.setAttribute("currentUser", null)
 
-    redirect("/json/user/current")
+    401
   }
 
   post("/user/register") {
-    val user = parse(request.body).extract[JsonModels.UserRegister]
-    println(user.email)
-    println(user.name)
-    println(user.password)
-    services.userService.addNewUserAndReturnPin(user.email, user.name, user.password, uuid)
+    val parsedUser = parse(request.body).extract[JsonModels.UserRegister]
+    services.userService.addNewUserAndReturnPin(parsedUser.email, parsedUser.name, parsedUser.password, uuid)
+
+    val userFromDb = services.userService.userByEmailAndPassword(parsedUser.email, parsedUser.password)
+
+    request.getSession.setAttribute("currentUser", userFromDb)
   }
 }

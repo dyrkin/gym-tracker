@@ -2,7 +2,7 @@ angular.module('gymTrackerApp')
     .constant('APP', {
         /*AngularJS Routes path. See route.js for example*/
         logoutPath: "/logout",
-        loginPath: "/login",
+        loginPath: "/",
         mainPath: "/main",
         registrationPath: "/registration",
 
