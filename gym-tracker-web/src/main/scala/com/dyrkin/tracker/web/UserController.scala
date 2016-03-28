@@ -17,8 +17,11 @@ trait UserController extends JacksonJsonSupport {
   }
 
   post("/user/authenticate") {
-    val user = parse(request.body).extract[JsonModels.UserLogin]
-    if (user.email == "admin@admin.com" && user.password == "admin")
+    val parsedUser = parse(request.body).extract[JsonModels.UserLogin]
+    val user = services.userService.userByEmailAndPassword(parsedUser.email, parsedUser.password)
+
+println(user)
+    if (user == None)
       request.getSession.setAttribute("currentUser", user)
     else
       401
@@ -31,11 +34,11 @@ trait UserController extends JacksonJsonSupport {
     redirect("/json/user/current")
   }
 
-  get("/user/register") {
-    val userName = params("name")
-    val email = params("email")
-    val pHash = params("phash")
-
-    services.userService.addNewUserAndReturnPin(userName, email, pHash, uuid)
+  post("/user/register") {
+    val user = parse(request.body).extract[JsonModels.UserRegister]
+    println(user.email)
+    println(user.name)
+    println(user.password)
+    services.userService.addNewUserAndReturnPin(user.email, user.name, user.password, uuid)
   }
 }

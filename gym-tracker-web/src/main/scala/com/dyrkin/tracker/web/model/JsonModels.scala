@@ -5,4 +5,5 @@ package com.dyrkin.tracker.web.model
   */
 object JsonModels {
   case class UserLogin(email: String, password: String)
+  case class UserRegister(email: String, name: String,  password: String)
 }
