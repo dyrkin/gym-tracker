@@ -38,17 +38,17 @@ class UserService(implicit val db: Database) {
   def validateTime(pinCreated: Long) = {
     val timeElapsedSincePinCreation = current.getTime - pinCreated
 
-    if(C.pinValidDuration.toMillis < timeElapsedSincePinCreation) {
+    if (C.pinValidDuration.toMillis < timeElapsedSincePinCreation) {
       sys.error(s"Pin is invalid. Please recreate it and use in period: ${C.pinValidDuration.toString()}")
     }
   }
 
   def getUserDetailsById(id: Long) = {
-   db.run(queries.userDetailsById(id).result).exec.headOption.getOrElse(sys.error("User with id: "+ id+ " not found"))
+    db.run(queries.userDetailsById(id).result).exec.headOption.getOrElse(sys.error("User with id: " + id + " not found"))
   }
 
-  def userByEmailAndPassword(email: String, password: String) : WatchUserDetails = {
-   val user =  db.run(queries.userByEmailAndPassword(email, password).result).exec.headOption
-    WatchUserDetails(user.get._1, user.get._2, user.get._3)
+  def userByEmailAndPassword(email: String, password: String): WatchUserDetails = {
+    val user = db.run(queries.userByEmailAndPassword(email, password).result).exec
+    if (user.isEmpty) null else WatchUserDetails(user.headOption.get._1, user.headOption.get._2, user.headOption.get._3)
   }
 }

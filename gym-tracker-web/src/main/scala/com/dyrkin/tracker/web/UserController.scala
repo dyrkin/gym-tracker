@@ -11,7 +11,6 @@ trait UserController extends JacksonJsonSupport {
   self: ServicesAware with JsonSupport =>
 
   get("/user/current") {
-    //  services.userService.getUserDetailsById(1L) // TODO: Change it to Get current authorized user from App CONTEXT
     val currentUser = request.getSession.getAttribute("currentUser")
     if (currentUser == null) 401 else currentUser
   }
@@ -19,27 +18,24 @@ trait UserController extends JacksonJsonSupport {
   post("/user/authenticate") {
     val parsedUser = parse(request.body).extract[JsonModels.UserLogin]
     val user = services.userService.userByEmailAndPassword(parsedUser.email, parsedUser.password)
-
-    if (user != None) {
+    if (user == null)
+      401
+    else {
       request.getSession.setAttribute("currentUser", user)
       user
-    } else
-      401
+    }
   }
 
   get("/user/logout") {
-
     request.getSession.setAttribute("currentUser", null)
-
     401
   }
 
   post("/user/register") {
     val parsedUser = parse(request.body).extract[JsonModels.UserRegister]
-    services.userService.addNewUserAndReturnPin(parsedUser.email, parsedUser.name, parsedUser.password, uuid)
+    services.userService.addNewUserAndReturnPin(parsedUser.name, parsedUser.email, parsedUser.password, uuid)
 
     val userFromDb = services.userService.userByEmailAndPassword(parsedUser.email, parsedUser.password)
-
     request.getSession.setAttribute("currentUser", userFromDb)
   }
 }
