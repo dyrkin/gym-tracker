@@ -4,13 +4,14 @@
 <meta charset="utf-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
+<title>Gym-Tracker</title>
+<link rel="icon" type="image/png" href="/static/tracker/app/images/favicon.ico"/>
 <link  href="/static/tracker/app/js/bower_components/AngularJS-Toaster/toaster.css" rel="stylesheet"/>
 <link  href="/static/tracker/app/js/bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet"/>
 
-<link href="/static/tracker/app/css/styles.css" rel="stylesheet">
-<link href="/static/tracker/app/css/selectize.bootstrap3.css" rel="stylesheet">
-<link href="/static/tracker/app/css/landing.css" rel="stylesheet">
+<link href="/static/tracker/app/css/styles.css" rel="stylesheet"/>
+<link href="/static/tracker/app/css/selectize.bootstrap3.css" rel="stylesheet"/>
+<link href="/static/tracker/app/css/landing.css" rel="stylesheet"/>
 </head>
 
 <body>
