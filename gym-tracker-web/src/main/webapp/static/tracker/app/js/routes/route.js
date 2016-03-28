@@ -1,4 +1,4 @@
-angular.module('app.route', ['ngRoute'])
+angular.module('gymTrackerApp')
     .config(['$routeProvider', 'CONTEXTProvider',
         function ($routeProvider, CONTEXTProvider) {
 
@@ -12,11 +12,9 @@ angular.module('app.route', ['ngRoute'])
                     controller: 'RegistrationController'
                 })
                 .when('/main', {
-                templateUrl: CONTEXTProvider.$get() + '/static/tracker/app/views/main.html',
-                controller: 'MainController'
-            })
-                .otherwise({
-                redirectTo: '/login'
-            });
+                    templateUrl: CONTEXTProvider.$get() + '/static/tracker/app/views/main.html',
+                    controller: 'MainController'
+                })
+
         }
     ]);
