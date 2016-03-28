@@ -9,11 +9,13 @@ var myApp = angular.module('gymTrackerApp', ['ui.bootstrap', 'ng', 'toaster', 'n
             if (!authSrv.authorized() && typeof next != 'undefined' && typeof next.$$route != 'undefined' && next.$$route.originalPath != '/') {
 
                 authSrv.getCurrentUser().then(function () { // success
-                        $location.path(next.$$route.originalPath)
+                        $location.path("/main")
                     },
                     function () { // error
                         $location.path("/")
                     });
+            } else if (authSrv.authorized() && typeof next != 'undefined' && typeof next.$$route != 'undefined' && next.$$route.originalPath == '/') {
+                $location.path("/main")
             }
         });
 

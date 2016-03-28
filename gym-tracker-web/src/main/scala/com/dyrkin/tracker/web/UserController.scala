@@ -12,13 +12,13 @@ trait UserController extends JacksonJsonSupport {
 
   get("/user/current") {
     val currentUser = request.getSession.getAttribute("currentUser")
-    if (currentUser == null) 401 else currentUser
+    if (Option.apply(currentUser).isEmpty) 401 else currentUser
   }
 
   post("/user/authenticate") {
     val parsedUser = parse(request.body).extract[JsonModels.UserLogin]
     val user = services.userService.userByEmailAndPassword(parsedUser.email, parsedUser.password)
-    if (user == null)
+    if (user.isEmpty)
       401
     else {
       request.getSession.setAttribute("currentUser", user)
