@@ -1,4 +1,4 @@
-angular.module('app.services')
+angular.module('gymTrackerApp')
     .service('authSrv', ['$rootScope', '$q', '$route', '$window', '$http', '$location', 'APP', 'PopupService',
         function ($rootScope, $q, $route, $window, $http, $location, APP, PopupService) {
 
@@ -12,7 +12,6 @@ angular.module('app.services')
                         email: email, password: password
                     }
                 ).success(function (data, status, headers, config) {
-
                     if (status === 200) {
                         authorized = true;
                         user = data;
@@ -26,7 +25,7 @@ angular.module('app.services')
                     if (status === 401)
                         PopupService.showPopup('error', 'Login Failed', 'Incorrect login or password', 1600);
                     else
-                        PopupService.showPopup('error', 'Unknown error', 'Try again', 1600);
+                        PopupService.showPopup('error', 'Internal server error', 'Try again', 1600);
                     console.log("failure => " + data)
                 });
             }

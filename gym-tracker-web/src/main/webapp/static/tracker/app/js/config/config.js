@@ -1,5 +1,4 @@
-angular.module('app.config', [])
-
+angular.module('gymTrackerApp')
     .constant('APP', {
         /*AngularJS Routes path. See route.js for example*/
         logoutPath: "/logout",
