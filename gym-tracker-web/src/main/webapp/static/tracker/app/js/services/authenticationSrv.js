@@ -66,7 +66,7 @@ angular.module('gymTrackerApp')
             }
 
             function unAuthenticate(idReason) {
-                return $http.get('json/user/logout')
+                return $http.get(APP.logoutPath)
                     .finally(function () {
                         user = undefined;
                         authorized = false;

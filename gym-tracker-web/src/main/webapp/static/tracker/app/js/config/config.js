@@ -1,14 +1,12 @@
 angular.module('gymTrackerApp')
     .constant('APP', {
         /*AngularJS Routes path. See route.js for example*/
-        logoutPath: "/logout",
         loginPath: "/",
         mainPath: "/main",
-        registrationPath: "/registration",
-
 
         authenticatePath: "/json/user/authenticate",
         userRegistrationPath: "/json/user/register",
+        logoutPath: "/json/user/logout",
 
         /*Path to UserController*/
         currentUserPath: "/json/user/current"
