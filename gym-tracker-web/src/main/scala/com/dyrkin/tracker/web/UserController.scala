@@ -20,10 +20,11 @@ trait UserController extends JacksonJsonSupport {
     val parsedUser = parse(request.body).extract[JsonModels.UserLogin]
     val user = services.userService.userByEmailAndPassword(parsedUser.email, parsedUser.password)
 
-println(user)
-    if (user == None)
+    println(user)
+    if (user != None) {
       request.getSession.setAttribute("currentUser", user)
-    else
+    user
+  } else
       401
   }
 

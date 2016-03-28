@@ -3,37 +3,30 @@
 var myApp = angular.module('gymTrackerApp', [
     'app.config',
     'app.controllers',
-    'app.models',
     'app.route',
+    'app.services',
     'ui.bootstrap',
     'ng',
     'toaster'
 
-]).run(['$rootScope', 'User', '$route', '$location', 'CONTEXT', 'APP',
-    function ($rootScope, User, $route, $location, CONTEXT, APP) {
-        var user = new User();
-        var loginUrl = CONTEXT + APP.loginPath;
-        var mainUrl = CONTEXT + APP.mainPath;
+]).run(['$rootScope', '$route', '$location', 'CONTEXT', 'APP', 'authSrv',
+    function ($rootScope, $route, $location, CONTEXT, APP, authSrv) {
+
 
         $rootScope.$on('$routeChangeStart', function (event, next) {
-            if (typeof User.getCurrentUser() == 'undefined') {
-                user.getLoginInfo().then(function () {
-                    if (typeof User.getCurrentUser() != 'undefined' && User.getCurrentUser().isAuthenticated) {
-                        User.getCurrentUser().openHomePath();
-                    } else {
-                        $location.path(loginUrl);
-                    }
-                });
-            } else if ($location.path() == loginUrl) {
-                $location.path(mainUrl)
-            }
+          if (!authSrv.authorized()) {
+              console.log("not logined")
+              $location.path("/login")
+          } else {
+              console.log("logined")
+          }
         });
     }
 ]).directive('passwordConfirm', ['$parse', function ($parse) {
     return {
         restrict: 'A',
         scope: {
-            matchTarget: '=',
+            matchTarget: '='
         },
         require: 'ngModel',
         link: function link(scope, elem, attrs, ctrl) {

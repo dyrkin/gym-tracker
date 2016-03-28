@@ -1,46 +1,26 @@
 angular.module('app.controllers')
-    .controller('AuthenticationController', ['$rootScope', '$scope', '$q', '$route', '$window', 'User', '$http', '$location', 'APP', 'PopupService', '$uibModalStack',
-        function ($rootScope, $scope, $q, $route, $window, User, $http, $location, APP, PopupService, $uibModalStack) {
+    .controller('AuthenticationController', ['$rootScope', '$scope', '$q', '$route', '$window', '$http', '$location', 'APP', 'PopupService', 'authSrv',
+        function ($rootScope, $scope, $q, $route, $window, $http, $location, APP, PopupService, authSrv) {
+
+
+            var authorized;
+            var user;
+            var concurrentAuthTry = false;
+
 
             $scope.userForLogin = {};
-            $scope.loginUser = function () {
-                return $http.post(APP.authenticatePath, {
-                        email: $scope.userForLogin.email, password: $scope.userForLogin.password
-                    }
-                ).success(function (data, status, headers, config) {
-
-                    if (status === 200) {
-                        var user = new User();
-                        user.getLoginInfo().then(function () {
-                            angular.element("#myLoginModal").modal("hide");
-                            user.openHomePath();
-                            $scope.userForLogin = undefined;
-                        });
-                    } else {
-                        PopupService.showPopup('error', 'Login Failed', 'Incorrect login or password', 1600);
-                    }
-                }).error(function (data, status, headers, config) {
-                    if (status === 401)
-                        PopupService.showPopup('error', 'Login Failed', 'Incorrect login or password', 1600);
-                    else
-                        PopupService.showPopup('error', 'Unknown error', 'Try again', 1600);
-                    console.log("failure => " + data)
-                });
+            $scope.userForRegistration = {};
+            $scope.loginUser = function (isValid){
+                if (isValid){
+                    authSrv.authenticate($scope.userForLogin.email, $scope.userForLogin.password);
+                }
             }
 
 
-            $scope.userForRegistration = {};
+
+
+
             $scope.registrationUser = function () {
-
-                console.log($scope.userForRegistration.email)
-                console.log($scope.userForRegistration.name)
-                console.log($scope.userForRegistration.password)
-                console.log($scope.userForRegistration.confirmPassword)
-
-
-
-
-
 
                 return $http.post(APP.userRegistrationPath, {
                         email: $scope.userForRegistration.email, name: $scope.userForRegistration.name, password: $scope.userForRegistration.password
@@ -48,10 +28,6 @@ angular.module('app.controllers')
                 ).success(function (data, status, headers, config) {
 
                     if (status === 200 || status === 201) {
-                      //  angular.element("#myRegistrationModal").modal("hide");
-                      //  angular.element("#myLoginModal").modal("show");
-                      //console.log('success')
-                      //PopupService.showPopup('success', 'Registration', 'Successful Registration', 2500);
                         $scope.userForLogin.email = $scope.userForRegistration.email;
                         $scope.userForLogin.password = $scope.userForRegistration.password;
                         $scope.userForRegistration = undefined;
@@ -64,6 +40,24 @@ angular.module('app.controllers')
                         PopupService.showPopup('error', 'Unknown error', 'Try again', 1600);
                     console.log("failure => " + data)
                 });
+            }
+
+            return {
+                authorized : function(){
+                    return authorized;
+                },
+                getUser: function(){
+                    return user;
+                },
+                //unAuthenticate : unAuthenticate,
+                //authenticate : authenticate,
+                //menuItemAllowed : menuItemAllowed,
+                setConcurrentAuthTry:function(value){
+                    concurrentAuthTry = value;
+                },
+                isConcurrentAuthTry:function(){
+                    return concurrentAuthTry;
+                }
             }
         }
     ]);

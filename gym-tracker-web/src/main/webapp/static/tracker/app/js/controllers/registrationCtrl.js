@@ -1,6 +1,6 @@
 angular.module('app.controllers')
-    .controller('RegistrationController', ['$rootScope', '$scope', '$q', '$route', '$window', 'User',
-        function ($rootScope, $scope, $q, $route, $window, User) {
+    .controller('RegistrationController', ['$rootScope', '$scope', '$q', '$route', '$window',
+        function ($rootScope, $scope, $q, $route, $window) {
             $scope.user = {
                 name: '',
                 email: '',
