@@ -21,4 +21,8 @@ package object util {
   def safe[T](f: => T): Option[T] = {
     Try(f).toOption
   }
+
+  implicit class OptionString(stringOpt: Option[String]) {
+    def noneIfEmpty = stringOpt.filterNot(_.isEmpty)
+  }
 }
