@@ -43,8 +43,9 @@ class UserService(implicit val db: Database) {
     }
   }
 
-  def getUserDetailsById(id: Long) = {
-    db.run(queries.userDetailsById(id).result).exec.headOption.getOrElse(sys.error("User with id: " + id + " not found"))
+  def getUserDetailsById(id: Long): Option[WatchUserDetails] = {
+    val user = db.run(queries.userDetailsById(id).result).exec
+    if (user.isEmpty) None else Option.apply(WatchUserDetails(user.headOption.get._1, user.headOption.get._2, user.headOption.get._3, user.headOption.get._4))
   }
 
   def userByEmailAndPassword(email: String, password: String): Option[WatchUserDetails] = {

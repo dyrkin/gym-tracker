@@ -1,5 +1,6 @@
 package com.dyrkin.tracker.web
 
+import com.dyrkin.tracker.authentication.AuthenticationSupport
 import com.dyrkin.tracker.core.util._
 import com.dyrkin.tracker.web.model.JsonModels
 import org.scalatra.json.JacksonJsonSupport
@@ -7,7 +8,7 @@ import org.scalatra.json.JacksonJsonSupport
 /**
   * @author eugene zadyra
   */
-trait UserController extends JacksonJsonSupport {
+trait UserController extends JacksonJsonSupport with AuthenticationSupport{
   self: ServicesAware with JsonSupport =>
 
   get("/user/current") {
@@ -16,14 +17,21 @@ trait UserController extends JacksonJsonSupport {
   }
 
   post("/user/authenticate") {
-    val parsedUser = parse(request.body).extract[JsonModels.UserLogin]
-    val user = services.userService.userByEmailAndPassword(parsedUser.email, parsedUser.password)
-    if (user.isEmpty)
-      401
-    else {
-      request.getSession.setAttribute("currentUser", user)
-      user
+    if(!isAuthenticated) {
+      scentry.authenticate("UserPassword")
     }
+ val user =  authenticate().get
+    user
+
+    //    val parsedUser = parse(request.body).extract[JsonModels.UserLogin]
+//    val user = services.userService.userByEmailAndPassword(parsedUser.email, parsedUser.password)
+//    if (user.isEmpty)
+//      401
+//    else {
+//      request.getSession.setAttribute("currentUser", user)
+//      user
+//    }
+
   }
 
   get("/user/logout") {
