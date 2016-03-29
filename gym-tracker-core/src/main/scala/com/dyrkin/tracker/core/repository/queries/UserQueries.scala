@@ -29,4 +29,8 @@ trait UserQueries {
   def userByEmailAndPassword(email: String, password: String) = {
     users.filter(u => u.email === email && u.hash === password).map{u => (u.id, u.name, u.email, u.uuid)}
   }
+
+  def userByEmail(email: String) = {
+    users.filter(u => u.email === email).map{u => (u.id, u.name, u.email, u.uuid)}
+  }
 }

@@ -52,4 +52,9 @@ class UserService(implicit val db: Database) {
     val users = db.run(queries.userByEmailAndPassword(email, password).result).exec
     users.headOption.map(u => WatchUserDetails(u))
   }
+
+  def userByEmail(email: String): Option[WatchUserDetails] = {
+    val users = db.run(queries.userByEmail(email).result).exec
+    users.headOption.map(u => WatchUserDetails(u))
+  }
 }

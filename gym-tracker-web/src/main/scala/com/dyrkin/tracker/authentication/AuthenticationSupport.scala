@@ -1,6 +1,5 @@
 package com.dyrkin.tracker.authentication
 
-
 import com.dyrkin.tracker.authentication.strategies.UserPasswordStrategy
 import com.dyrkin.tracker.core.service.UserService
 import com.dyrkin.tracker.core.vo.WatchUserDetails
@@ -10,7 +9,9 @@ import org.scalatra.ScalatraBase
 import org.slf4j.LoggerFactory
 import com.dyrkin.tracker.core.driver.AgnosticDriver.api._
 
-
+/**
+  * @author ihor zadyra
+  */
 trait AuthenticationSupport extends ScalatraBase with ScentrySupport[WatchUserDetails] {
   self: ServicesAware =>
 

@@ -28,6 +28,10 @@ trait UserController extends JacksonJsonSupport with AuthenticationSupport {
 
   post("/user/register") {
     val parsedUser = parse(request.body).extract[JsonModels.UserRegister]
-    services.userService.addNewUserAndReturnPin(parsedUser.name, parsedUser.email, parsedUser.password, uuid)
+
+    if (services.userService.userByEmail(parsedUser.email.trim).isEmpty)
+      services.userService.addNewUserAndReturnPin(parsedUser.name.trim, parsedUser.email.trim, parsedUser.password.trim, uuid)
+    else
+      409 // conflict
   }
 }

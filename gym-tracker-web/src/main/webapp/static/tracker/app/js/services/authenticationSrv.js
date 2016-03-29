@@ -4,7 +4,6 @@ angular.module('gymTrackerApp')
 
             var authorized = false;
             var user;
-            var concurrentAuthTry = false;
 
             function getCurrentUser(email, password) {
                 return $http.get(APP.currentUserPath).success(function (data, status, headers, config) {
@@ -22,7 +21,7 @@ angular.module('gymTrackerApp')
 
             function authenticate(email, password) {
                 var data = $.param({
-                    email:  JSON.stringify(email).replace(/\"/g, ""),
+                    email: JSON.stringify(email).replace(/\"/g, ""),
                     password: JSON.stringify(password).replace(/\"/g, "")
                 });
                 return $http({
@@ -61,13 +60,14 @@ angular.module('gymTrackerApp')
 
                         console.log(user);
                         angular.element("#myRegistrationModal").modal("hide");
-                       // $location.path('/main'); // TODO:  function authenticate
                         authenticate(email, password)
                     }
                 }).error(function (data, status, headers, config) {
                     if (status === 401)
                         PopupService.showPopup('error', 'Login Failed', 'Incorrect login or password', 1600);
-                    else
+                    else if (status === 409) {
+                        PopupService.showPopup('error', 'Registration Failed', 'User with the same email already exists', 2500);
+                    } else
                         PopupService.showPopup('error', 'Unknown error', 'Try again', 1600);
                     console.log("failure => " + data)
                 });
@@ -78,7 +78,6 @@ angular.module('gymTrackerApp')
                     .finally(function () {
                         user = undefined;
                         authorized = false;
-
                         $location.path("/");
                     });
             }
@@ -93,14 +92,7 @@ angular.module('gymTrackerApp')
                 unAuthenticate: unAuthenticate,
                 authenticate: authenticate,
                 registration: registrationUser,
-                getCurrentUser: getCurrentUser,
-                //menuItemAllowed : menuItemAllowed,
-                setConcurrentAuthTry: function (value) {
-                    concurrentAuthTry = value;
-                },
-                isConcurrentAuthTry: function () {
-                    return concurrentAuthTry;
-                }
+                getCurrentUser: getCurrentUser
             }
         }
     ]);

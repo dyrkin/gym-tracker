@@ -9,6 +9,9 @@ import com.dyrkin.tracker.core.vo.WatchUserDetails
 import org.scalatra.ScalatraBase
 import org.scalatra.auth.ScentryStrategy
 
+/**
+  * @author ihor zadyra
+  */
 class UserPasswordStrategy(protected val app: ScalatraBase, implicit val services: ServicesT)(implicit request: HttpServletRequest, response: HttpServletResponse)
   extends ScentryStrategy[WatchUserDetails] {
 
