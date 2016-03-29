@@ -21,8 +21,15 @@ angular.module('gymTrackerApp')
 
 
             function authenticate(email, password) {
-                return $http.post(APP.authenticatePath, {
-                        email: email, password: password
+                var data = $.param({
+                    email:  JSON.stringify(email).replace(/\"/g, ""),
+                    password: JSON.stringify(password).replace(/\"/g, "")
+                });
+                return $http({
+                        method: 'POST',
+                        url: APP.authenticatePath,
+                        data: data,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     }
                 ).success(function (data, status, headers, config) {
                     if (status === 200) {
@@ -54,7 +61,8 @@ angular.module('gymTrackerApp')
 
                         console.log(user);
                         angular.element("#myRegistrationModal").modal("hide");
-                        $location.path('/main');
+                       // $location.path('/main'); // TODO:  function authenticate
+                        authenticate(email, password)
                     }
                 }).error(function (data, status, headers, config) {
                     if (status === 401)
