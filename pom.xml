@@ -211,6 +211,9 @@
                         </configuration>
                     </execution>
                 </executions>
+                <configuration>
+                    <recompileMode>incremental</recompileMode>
+                </configuration>
             </plugin>
 
             <plugin>
