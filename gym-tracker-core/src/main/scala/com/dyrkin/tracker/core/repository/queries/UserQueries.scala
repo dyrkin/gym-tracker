@@ -19,7 +19,7 @@ trait UserQueries {
   }
 
   def userDetailsById(id: Long) = {
-    users.filter(_.id === id).map{u => (u.name, u.email, u.uuid)}
+    users.filter(_.id === id).map{u => (u.id, u.name, u.email, u.uuid)}
   }
 
   def userIdByNameAndUUID(name: String, uuid: String) = {
@@ -27,6 +27,6 @@ trait UserQueries {
   }
 
   def userByEmailAndPassword(email: String, password: String) = {
-    users.filter(u => u.email === email && u.hash === password).map{u => (u.name, u.email, u.uuid)}
+    users.filter(u => u.email === email && u.hash === password).map{u => (u.id, u.name, u.email, u.uuid)}
   }
 }

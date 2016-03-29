@@ -1,6 +1,6 @@
-<header class="header" xmlns:th="http://www.w3.org/1999/xhtml">
+<header xmlns:th="http://www.w3.org/1999/xhtml" class="header">
     <div class="container" style="width: 96%">
-        <a class="logo pull-left" href="/"><img src="/static/tracker/app/images/garmin.gif" alt="logo"></a>
+        <a class="logo pull-left" href="#/"><img src="/static/tracker/app/images/garmin.gif" alt="logo"></a>
         <button class="btn btn-default-light pull-right" data-toggle="modal" data-target="#myRegistrationModal">
             Registration
         </button>
@@ -57,16 +57,10 @@
 
                     <p class="clearfix">
                     <h5>
-                        <!--<span>By registering, you are agreeing to our</span>-->
                         <a href="/conditions">Forgot password</a>
-                        <!--<span>of Service and Privacy Policy</span>-->
                     </h5>
                     </p>
 
-                    <!--
-                                            <label class="sr-only control-label">Password</label>
-                                            <input type="password" class="form-control" placeholder="Password"/>
-                    -->
                     <div class="alert alert-danger text-center" role="alert" style="display: none"></div>
                 </div>
 
@@ -109,8 +103,6 @@
                     <div class="alert alert-success text-center" role="alert" style="display: none"
                     ></div>
                     <br/>
-
-
                     <input required="required" type="email" name="email" id="regEmail" class="form-control"
                            autocomplete="off" ng-model="userForRegistration.email"
                            placeholder="E-Mail Address"/><br/>
@@ -139,11 +131,6 @@
                         <span>of Service and Privacy Policy</span>
                     </h5>
                     </p>
-
-                    <!--
-                                            <label class="sr-only control-label">Password</label>
-                                            <input type="password" class="form-control" placeholder="Password"/>
-                    -->
                     <div class="alert alert-danger text-center" role="alert" style="display: none"></div>
                 </div>
 
@@ -153,58 +140,6 @@
                     </button>
                 </div>
             </form>
-
-            <!--<form role="form" name="myForm" novalidate>-->
-            <!--<div class="form-group" ng-class="{'has-error':!myForm.password.$valid}">-->
-            <!--<label for="password">Password</label>-->
-            <!--<input class="form-control" type="text" name="password" placeholder="password..." required ng-model="password" />-->
-            <!--<span class="help-block" ng-show="myForm.password.$error.required">Required</span>-->
-            <!--</div>-->
-
-            <!--<div class="form-group" ng-class="{'has-error':!myForm.passwordConfirmation.$valid}">-->
-            <!--<label for="passwordConfirmation">Confirm Password</label>-->
-            <!--<input class="form-control" type="password" name="passwordConfirmation" required ng-model="passwordConfirmation" password-confirm match-target="password" />-->
-            <!--<span class="help-block" ng-show="myForm.passwordConfirmation.$error.required">Required</span>-->
-            <!--</div>-->
-
-            <!--<button ng-disabled="myForm.$invalid">Submit</button>-->
-            <!--<span class="help-block" ng-show="myForm.passwordConfirmation.$error.match">Passwords do not match.</span>-->
-
-            <!--</form>-->
         </div>
     </div>
 </div>
-
-<!--<div class="container">-->
-<!--<div class="row">-->
-<!--<div class="Absolute-Center is-Responsive">-->
-<!--<div id="logo-container"></div>-->
-<!--<div class="col-sm-12 col-md-10 col-md-offset-1">-->
-<!--<div  ng-show="errorMessage" class="alert alert-danger" role="alert"> {{errorMessage}}</div>-->
-<!--<form  name="loginForm">-->
-<!--<div class="form-group input-group">-->
-<!--<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>-->
-<!--<input class="form-control" type="text" id="username"  ng-model="user.email"-->
-<!--placeholder="Email address" required="true"/>-->
-<!--</div>-->
-<!--<div class="form-group input-group">-->
-<!--<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>-->
-<!--<input class="form-control" type="password" id="password"  ng-model="user.password" required="true" min="4" max="10"-->
-<!--placeholder="Password"/>-->
-<!--</div>-->
-<!--<div class="checkbox">-->
-<!--<label>-->
-<!--<input type="checkbox"> I agree to the <a href="#">Terms and Conditions</a>-->
-<!--</label>-->
-<!--</div>-->
-<!--<div class="form-group">-->
-<!--<button type="button" class="btn btn-def btn-block" ng-click="loginUser(loginForm.$valid)">Login</button>-->
-<!--</div>-->
-<!--<div class="form-group text-center">-->
-<!--<a href="#">Forgot Password</a>&nbsp;|&nbsp;<a href="#/registration">Registration</a>-->
-<!--</div>-->
-<!--</form>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
