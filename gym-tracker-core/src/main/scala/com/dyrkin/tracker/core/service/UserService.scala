@@ -32,7 +32,7 @@ class UserService(implicit val db: Database) {
     val (userId, details) = db.run(q.transactionally).exec
 
     validateTime(userId._2)
-    WatchUserDetails(details._1, details._2, details._3, details._4)
+    WatchUserDetails(details)
   }
 
   def validateTime(pinCreated: Long) = {
@@ -44,12 +44,12 @@ class UserService(implicit val db: Database) {
   }
 
   def getUserDetailsById(id: Long): Option[WatchUserDetails] = {
-    val user = db.run(queries.userDetailsById(id).result).exec
-    if (user.isEmpty) None else Option.apply(WatchUserDetails(user.headOption.get._1, user.headOption.get._2, user.headOption.get._3, user.headOption.get._4))
+    val users = db.run(queries.userDetailsById(id).result).exec
+    users.headOption.map(u => WatchUserDetails(u))
   }
 
   def userByEmailAndPassword(email: String, password: String): Option[WatchUserDetails] = {
-    val user = db.run(queries.userByEmailAndPassword(email, password).result).exec
-    if (user.isEmpty) None else Option.apply(WatchUserDetails(user.headOption.get._1, user.headOption.get._2, user.headOption.get._3, user.headOption.get._4))
+    val users = db.run(queries.userByEmailAndPassword(email, password).result).exec
+    users.headOption.map(u => WatchUserDetails(u))
   }
 }
