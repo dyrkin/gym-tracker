@@ -25,4 +25,6 @@ package object util {
   implicit class OptionString(stringOpt: Option[String]) {
     def noneIfEmpty = stringOpt.filterNot(_.isEmpty)
   }
+
+  def noId = sys.error("Id is not defined")
 }

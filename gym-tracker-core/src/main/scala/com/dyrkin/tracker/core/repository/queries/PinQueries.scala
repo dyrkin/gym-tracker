@@ -25,7 +25,7 @@ trait PinQueries {
   }
 
   def savePin(pin: Int, time: Long, userId: Long) = {
-    pins += (pin, time, userId)
+    pins += Pin(pin, time, userId)
   }
 
   def userIdAndTimeByPin(pin: Int) = {

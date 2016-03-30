@@ -8,7 +8,9 @@ import slick.lifted.Tag
   */
 object Tables {
 
-  class Pin(tag: Tag) extends Table[(Int, Long, Long)](tag, "PIN") {
+  case class Pin(pin: Int, time: Long, userId: Long)
+
+  class PinTable(tag: Tag) extends Table[Pin](tag, "PIN") {
     def pin = column[Int]("RAND_PIN", O.PrimaryKey)
 
     def time = column[Long]("TIME_CREATED")
@@ -17,12 +19,14 @@ object Tables {
 
     def user = foreignKey("P_USER_FK", userId, users)(_.id)
 
-    def * = (pin, time, userId)
+    def * = (pin, time, userId) <> (Pin.tupled, Pin.unapply)
   }
 
-  lazy val pins = TableQuery[Pin]
+  lazy val pins = TableQuery[PinTable]
 
-  class User(tag: Tag) extends Table[(Long, String, String, String, String)](tag, "USER") {
+  case class User(id: Option[Long], name: String, email: String, hash: String, uuid:String)
+
+  class UserTable(tag: Tag) extends Table[User](tag, "USER") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("NAME")
@@ -33,12 +37,14 @@ object Tables {
 
     def uuid = column[String]("UUID")
 
-    def * = (id, name, email, hash, uuid)
+    def * = (id.?, name, email, hash, uuid) <> (User.tupled, User.unapply)
   }
 
-  lazy val users = TableQuery[User]
+  lazy val users = TableQuery[UserTable]
 
-  class Exercise(tag: Tag) extends Table[(Long, String, Long)](tag, "EXERCISE") {
+  case class Exercise(id: Option[Long], name: String, exerciseTypeId: Long)
+
+  class ExerciseTable(tag: Tag) extends Table[Exercise](tag, "EXERCISE") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("NAME")
@@ -47,32 +53,38 @@ object Tables {
 
     def exerciseType = foreignKey("E_EXERCISE_TYPE_FK", exerciseTypeId, exerciseTypes)(_.id)
 
-    def * = (id, name, exerciseTypeId)
+    def * = (id.?, name, exerciseTypeId) <> (Exercise.tupled, Exercise.unapply)
   }
 
-  lazy val exercises = TableQuery[Exercise]
+  lazy val exercises = TableQuery[ExerciseTable]
 
-  class ExerciseType(tag: Tag) extends Table[(Long, String)](tag, "EXERCISE_TYPE") {
+  case class ExerciseType(id: Long, name: String)
+
+  class ExerciseTypeTable(tag: Tag) extends Table[ExerciseType](tag, "EXERCISE_TYPE") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("NAME")
 
-    def * = (id, name)
+    def * = (id, name) <> (ExerciseType.tupled, ExerciseType.unapply)
   }
 
-  lazy val exerciseTypes = TableQuery[ExerciseType]
+  lazy val exerciseTypes = TableQuery[ExerciseTypeTable]
 
-  class Workout(tag: Tag) extends Table[(Long, String)](tag, "WORKOUT") {
+  case class Workout(id: Option[Long], name: String)
+
+  class WorkoutTable(tag: Tag) extends Table[Workout](tag, "WORKOUT") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("NAME")
 
-    def * = (id, name)
+    def * = (id.?, name) <> (Workout.tupled, Workout.unapply)
   }
 
-  lazy val workouts = TableQuery[Workout]
+  lazy val workouts = TableQuery[WorkoutTable]
 
-  class WorkoutExercise(tag: Tag) extends Table[(Long, Long)](tag, "WORKOUT_EXERCISE") {
+  case class WorkoutExercise(workoutId: Long, exerciseId: Long)
+
+  class WorkoutExerciseTable(tag: Tag) extends Table[WorkoutExercise](tag, "WORKOUT_EXERCISE") {
     def workoutId = column[Long]("WORKOUT_ID")
 
     def exerciseId = column[Long]("EXERCISE_ID")
@@ -81,12 +93,14 @@ object Tables {
 
     def exercise = foreignKey("WE_EXERCISE_FK", exerciseId, exercises)(_.id)
 
-    def * = (workoutId, exerciseId)
+    def * = (workoutId, exerciseId) <> (WorkoutExercise.tupled, WorkoutExercise.unapply)
   }
 
-  lazy val workouts2Exercises = TableQuery[WorkoutExercise]
+  lazy val workouts2Exercises = TableQuery[WorkoutExerciseTable]
 
-  class WorkoutProgram(tag: Tag) extends Table[(Long, Long)](tag, "WORKOUT_PROGRAM") {
+  case class WorkoutProgram(workoutId: Long, programId: Long)
+
+  class WorkoutProgramTable(tag: Tag) extends Table[WorkoutProgram](tag, "WORKOUT_PROGRAM") {
     def workoutId = column[Long]("WORKOUT_ID")
 
     def programId = column[Long]("PROGRAM_ID")
@@ -95,24 +109,28 @@ object Tables {
 
     def program = foreignKey("WP_PROGRAM_FK", programId, programs)(_.id)
 
-    def * = (workoutId, programId)
+    def * = (workoutId, programId) <> (WorkoutProgram.tupled, WorkoutProgram.unapply)
   }
 
-  lazy val workouts2Programs = TableQuery[WorkoutProgram]
+  lazy val workouts2Programs = TableQuery[WorkoutProgramTable]
 
-  class Calendar(tag: Tag) extends Table[(Long, Long)](tag, "CALENDAR") {
+  case class Calendar(id: Option[Long], workoutId: Long)
+
+  class CalendarTable(tag: Tag) extends Table[Calendar](tag, "CALENDAR") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def workoutId = column[Long]("WORKOUT_ID")
 
     def workout = foreignKey("C_WORKOUT_FK", workoutId, workouts)(_.id)
 
-    def * = (id, workoutId)
+    def * = (id.?, workoutId) <> (Calendar.tupled, Calendar.unapply)
   }
 
-  lazy val calendars = TableQuery[Calendar]
+  lazy val calendars = TableQuery[CalendarTable]
 
-  class DayOfWeek(tag: Tag) extends Table[(Long, Int, Long)](tag, "DAY_OF_WEEK") {
+  case class DayOfWeek(id: Option[Long], day: Int, calendarId: Long)
+
+  class DayOfWeekTable(tag: Tag) extends Table[DayOfWeek](tag, "DAY_OF_WEEK") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def day = column[Int]("DAY")
@@ -121,12 +139,14 @@ object Tables {
 
     def calendar = foreignKey("D_CALENDAR_FK", calendarId, calendars)(_.id)
 
-    def * = (id, day, calendarId)
+    def * = (id.?, day, calendarId) <> (DayOfWeek.tupled, DayOfWeek.unapply)
   }
 
-  lazy val daysOfWeek = TableQuery[DayOfWeek]
+  lazy val daysOfWeek = TableQuery[DayOfWeekTable]
 
-  class Program(tag: Tag) extends Table[(Long, String, Int, Long)](tag, "PROGRAM") {
+  case class Program(id: Option[Long], name: String, isActive: Int, userId: Long)
+
+  class ProgramTable(tag: Tag) extends Table[Program](tag, "PROGRAM") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("NAME")
@@ -137,8 +157,8 @@ object Tables {
 
     def user = foreignKey("P_USER_FK", userId, users)(_.id)
 
-    def * = (id, name, isActive, userId)
+    def * = (id.?, name, isActive, userId) <> (Program.tupled, Program.unapply)
   }
 
-  lazy val programs = TableQuery[Program]
+  lazy val programs = TableQuery[ProgramTable]
 }

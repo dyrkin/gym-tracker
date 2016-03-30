@@ -1,12 +1,12 @@
 package com.dyrkin.tracker.core.service
 
 import com.dyrkin.tracker.core.driver.AgnosticDriver.api._
+import com.dyrkin.tracker.core.repository.Tables.User
 import com.dyrkin.tracker.core.repository.queries._
 import com.dyrkin.tracker.core.util._
-import com.dyrkin.tracker.core.vo.{WatchUserDetails, Value}
+import com.dyrkin.tracker.core.vo.Value
 
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.concurrent.duration.DurationLong
 
 
 /**
@@ -27,12 +27,12 @@ class UserService(implicit val db: Database) {
   def getUserDetailsByPin(pin: Int) = {
     val q = for {
       userId <- queries.userIdAndTimeByPin(pin).result.head
-      userDetails <- queries.userDetailsById(userId._1).result.head
+      userDetails <- queries.userDetailsById(userId._1).result.headOption
     } yield (userId, userDetails)
-    val (userId, details) = db.run(q.transactionally).exec
+    val (userId, user) = db.run(q.transactionally).exec
 
     validateTime(userId._2)
-    WatchUserDetails(details)
+    user
   }
 
   def validateTime(pinCreated: Long) = {
@@ -43,18 +43,18 @@ class UserService(implicit val db: Database) {
     }
   }
 
-  def getUserDetailsById(id: Long): Option[WatchUserDetails] = {
+  def getUserDetailsById(id: Long): Option[User] = {
     val users = db.run(queries.userDetailsById(id).result).exec
-    users.headOption.map(u => WatchUserDetails(u))
+    users.headOption
   }
 
-  def userByEmailAndPassword(email: String, password: String): Option[WatchUserDetails] = {
+  def userByEmailAndPassword(email: String, password: String): Option[User] = {
     val users = db.run(queries.userByEmailAndPassword(email, password).result).exec
-    users.headOption.map(u => WatchUserDetails(u))
+    users.headOption
   }
 
-  def userByEmail(email: String): Option[WatchUserDetails] = {
+  def userByEmail(email: String): Option[User] = {
     val users = db.run(queries.userByEmail(email).result).exec
-    users.headOption.map(u => WatchUserDetails(u))
+    users.headOption
   }
 }

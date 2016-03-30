@@ -30,7 +30,7 @@ class ProgramService(implicit val db: Database) {
     db.run(queries.daysByWorkoutIds(ids).result)
   }
 
-  def getActiveProgramByUserId(id: Long) = {
+  def getActiveProgramByUserId(id: Long): Seq[Program] = {
     val programsFuture = activeProgrammByUserId(id).map {
       programs => programs.map { case (pId, pName) => workoutsByProgramId(pId).flatMap {
         workouts => Future.sequence(List(exersisesByWorkoutIds(workouts.map(_._1)), daysByWorkoutIds(workouts.map(_._1)))).flatMap {

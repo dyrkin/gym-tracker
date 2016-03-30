@@ -11,7 +11,7 @@ trait UserQueries {
   self: DatabaseSupport =>
 
   def addUser(name: String, email: String, hash: String, uuid: String) = {
-    users returning users.map(_.id) +=(-1, name, email, hash, uuid)
+    users returning users.map(_.id) += User(None, name, email, hash, uuid)
   }
 
   def userIdByEmail(email: String) = {
@@ -19,7 +19,7 @@ trait UserQueries {
   }
 
   def userDetailsById(id: Long) = {
-    users.filter(_.id === id).map{u => (u.id, u.name, u.email, u.uuid)}
+    users.filter(_.id === id)
   }
 
   def userIdByNameAndUUID(name: String, uuid: String) = {
@@ -27,10 +27,10 @@ trait UserQueries {
   }
 
   def userByEmailAndPassword(email: String, password: String) = {
-    users.filter(u => u.email === email && u.hash === password).map{u => (u.id, u.name, u.email, u.uuid)}
+    users.filter(u => u.email === email && u.hash === password)
   }
 
   def userByEmail(email: String) = {
-    users.filter(u => u.email === email).map{u => (u.id, u.name, u.email, u.uuid)}
+    users.filter(u => u.email === email)
   }
 }
