@@ -7,10 +7,10 @@ import com.dyrkin.tracker.core.repository.Tables.TableWithId
 /**
   * Created by ezadyra on 3/30/2016.
   */
-trait BaseQueries[Z] {
+trait BaseQueries {
   self: DatabaseSupport =>
 
-  def insertOrUpdate[T <: Table[Z] with TableWithId](tableQuery: TableQuery[T], value: Z) = {
+  def insertOrUpdate[Z, T <: Table[Z] with TableWithId](tableQuery: TableQuery[T], value: Z) = {
     (tableQuery returning tableQuery.map(_.id)) insertOrUpdate value
   }
 }

@@ -8,7 +8,7 @@ import com.dyrkin.tracker.core.repository.Tables._
 /**
   * @author eugene zadyra
   */
-trait WorkoutQueries extends BaseQueries[Workout]{
+trait WorkoutQueries extends BaseQueries {
   self: DatabaseSupport =>
 
   val getWorkoutsByProgramIdCompiled = Compiled(getWorkoutsByProgramId _)
