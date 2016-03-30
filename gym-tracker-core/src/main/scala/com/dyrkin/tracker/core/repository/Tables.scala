@@ -8,6 +8,10 @@ import slick.lifted.Tag
   */
 object Tables {
 
+  trait TableWithId {
+    def id: Rep[Long]
+  }
+
   case class Pin(pin: Int, time: Long, userId: Long)
 
   class PinTable(tag: Tag) extends Table[Pin](tag, "PIN") {
@@ -17,14 +21,14 @@ object Tables {
 
     def userId = column[Long]("USER_ID")
 
-    def user = foreignKey("P_USER_FK", userId, users)(_.id)
+    def user = foreignKey("PIN_USER_FK", userId, users)(_.id)
 
-    def * = (pin, time, userId) <> (Pin.tupled, Pin.unapply)
+    def * = (pin, time, userId) <>(Pin.tupled, Pin.unapply)
   }
 
   lazy val pins = TableQuery[PinTable]
 
-  case class User(id: Option[Long], name: String, email: String, hash: String, uuid:String)
+  case class User(id: Option[Long], name: String, email: String, hash: String, uuid: String)
 
   class UserTable(tag: Tag) extends Table[User](tag, "USER") {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
@@ -37,7 +41,7 @@ object Tables {
 
     def uuid = column[String]("UUID")
 
-    def * = (id.?, name, email, hash, uuid) <> (User.tupled, User.unapply)
+    def * = (id.?, name, email, hash, uuid) <>(User.tupled, User.unapply)
   }
 
   lazy val users = TableQuery[UserTable]
@@ -53,7 +57,7 @@ object Tables {
 
     def exerciseType = foreignKey("E_EXERCISE_TYPE_FK", exerciseTypeId, exerciseTypes)(_.id)
 
-    def * = (id.?, name, exerciseTypeId) <> (Exercise.tupled, Exercise.unapply)
+    def * = (id.?, name, exerciseTypeId) <>(Exercise.tupled, Exercise.unapply)
   }
 
   lazy val exercises = TableQuery[ExerciseTable]
@@ -65,19 +69,19 @@ object Tables {
 
     def name = column[String]("NAME")
 
-    def * = (id, name) <> (ExerciseType.tupled, ExerciseType.unapply)
+    def * = (id, name) <>(ExerciseType.tupled, ExerciseType.unapply)
   }
 
   lazy val exerciseTypes = TableQuery[ExerciseTypeTable]
 
   case class Workout(id: Option[Long], name: String)
 
-  class WorkoutTable(tag: Tag) extends Table[Workout](tag, "WORKOUT") {
+  class WorkoutTable(tag: Tag) extends Table[Workout](tag, "WORKOUT") with TableWithId {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("NAME")
 
-    def * = (id.?, name) <> (Workout.tupled, Workout.unapply)
+    def * = (id.?, name) <>(Workout.tupled, Workout.unapply)
   }
 
   lazy val workouts = TableQuery[WorkoutTable]
@@ -93,7 +97,7 @@ object Tables {
 
     def exercise = foreignKey("WE_EXERCISE_FK", exerciseId, exercises)(_.id)
 
-    def * = (workoutId, exerciseId) <> (WorkoutExercise.tupled, WorkoutExercise.unapply)
+    def * = (workoutId, exerciseId) <>(WorkoutExercise.tupled, WorkoutExercise.unapply)
   }
 
   lazy val workouts2Exercises = TableQuery[WorkoutExerciseTable]
@@ -109,7 +113,7 @@ object Tables {
 
     def program = foreignKey("WP_PROGRAM_FK", programId, programs)(_.id)
 
-    def * = (workoutId, programId) <> (WorkoutProgram.tupled, WorkoutProgram.unapply)
+    def * = (workoutId, programId) <>(WorkoutProgram.tupled, WorkoutProgram.unapply)
   }
 
   lazy val workouts2Programs = TableQuery[WorkoutProgramTable]
@@ -123,7 +127,7 @@ object Tables {
 
     def workout = foreignKey("C_WORKOUT_FK", workoutId, workouts)(_.id)
 
-    def * = (id.?, workoutId) <> (Calendar.tupled, Calendar.unapply)
+    def * = (id.?, workoutId) <>(Calendar.tupled, Calendar.unapply)
   }
 
   lazy val calendars = TableQuery[CalendarTable]
@@ -139,7 +143,7 @@ object Tables {
 
     def calendar = foreignKey("D_CALENDAR_FK", calendarId, calendars)(_.id)
 
-    def * = (id.?, day, calendarId) <> (DayOfWeek.tupled, DayOfWeek.unapply)
+    def * = (id.?, day, calendarId) <>(DayOfWeek.tupled, DayOfWeek.unapply)
   }
 
   lazy val daysOfWeek = TableQuery[DayOfWeekTable]
@@ -157,7 +161,7 @@ object Tables {
 
     def user = foreignKey("P_USER_FK", userId, users)(_.id)
 
-    def * = (id.?, name, isActive, userId) <> (Program.tupled, Program.unapply)
+    def * = (id.?, name, isActive, userId) <>(Program.tupled, Program.unapply)
   }
 
   lazy val programs = TableQuery[ProgramTable]

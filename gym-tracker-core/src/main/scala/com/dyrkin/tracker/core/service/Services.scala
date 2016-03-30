@@ -14,6 +14,8 @@ trait ServicesT {
   def userService: UserService
 
   def pinService: PinService
+
+  def workoutService: WorkoutService
 }
 
 class Services extends ServicesT {
@@ -24,4 +26,6 @@ class Services extends ServicesT {
   val userService = new UserService
 
   val pinService = new PinService
+
+  val workoutService = new WorkoutService
 }
