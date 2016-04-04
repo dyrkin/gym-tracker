@@ -1,10 +1,10 @@
 <header xmlns:th="http://www.w3.org/1999/xhtml" class="header">
     <div class="container" style="width: 96%">
         <a class="logo pull-left" href="#/"><img src="/static/tracker/app/images/garmin.gif" alt="logo"></a>
-        <button class="btn btn-default-light pull-right" data-toggle="modal" data-target="#myRegistrationModal">
+        <button class="btn btn-default-light pull-right" data-toggle="modal" data-target="#registrationModal" id="RegistrationModal">
             Registration
         </button>
-        <button class="btn btn-default-light pull-right" data-toggle="modal" data-target="#myLoginModal">Login</button>
+        <button class="btn btn-default-light pull-right" data-toggle="modal" data-target="#loginModal" id="LoginModal">Login</button>
     </div>
 </header><!-- /top-bar -->
 
@@ -13,9 +13,7 @@
         <section class="first-section">
             <div class="container">
                 <div class="text-wrap">
-                    <!--<h1>Be sure that your device<br> are controlled from<br> everywhere</h1>-->
-                    <!--<button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myLoginModal">Sign Up</button>-->
-                    <!--<button class="btn btn-default-light btn-lg">Watch a Video</button>-->
+                    <!--xxx-->
                 </div>
             </div>
         </section>
@@ -24,12 +22,12 @@
 </div><!-- /content-wrap -->
 
 <!-- Login Modal -->
-<div id="myLoginModal" class="modal fide in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div id="loginModal" class="modal fide in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-landing-sm">
         <div class="modal-content" style="background-color: rgb(245, 245, 245)">
             <div class="modal-header">
-                <button id="closeModalBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                <button id="closeLoginModalBtn" type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                         aria-hidden="true">&times;</span></button>
                 <h5><img style="height: 60px; width: 200px;" class="login-logo"
                          src="/static/tracker/app/images/logo_registration.jpg" alt=""/></h5>
@@ -65,7 +63,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button ng-click="loginUser(loginForm.$valid)" ng-disabled="loginForm.$invalid" type="submit"
+                    <button id="loginSubmit" ng-click="loginUser(loginForm.$valid)" ng-disabled="loginForm.$invalid" type="submit"
                             class="btn btn-primary btn-block">
                         <span>Login</span></button>
                 </div>
@@ -77,7 +75,7 @@
 </div>
 
 <!-- Registration Modal -->
-<div id="myRegistrationModal" class="modal fide in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+<div id="registrationModal" class="modal fide in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="true">
     <div class="modal-dialog modal-landing-sm">
         <div class="modal-content" style="background-color: rgb(245, 245, 245)">

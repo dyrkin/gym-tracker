@@ -35,7 +35,7 @@ angular.module('gymTrackerApp')
                         authorized = true;
                         user = data;
                         console.log(user);
-                        angular.element("#myLoginModal").modal("hide");
+                        angular.element("#loginModal").modal("hide");
                         $location.path('/main');
                     } else {
                         PopupService.showPopup('error', 'Login Failed', 'Incorrect login or password', 1600);
@@ -59,7 +59,7 @@ angular.module('gymTrackerApp')
                         user = data;
 
                         console.log(user);
-                        angular.element("#myRegistrationModal").modal("hide");
+                        angular.element("#registrationModal").modal("hide");
                         authenticate(email, password)
                     }
                 }).error(function (data, status, headers, config) {
