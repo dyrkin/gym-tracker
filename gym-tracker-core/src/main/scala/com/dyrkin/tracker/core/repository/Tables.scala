@@ -150,7 +150,7 @@ object Tables {
 
   case class Program(id: Option[Long], name: String, isActive: Int, userId: Long)
 
-  class ProgramTable(tag: Tag) extends Table[Program](tag, "PROGRAM") {
+  class ProgramTable(tag: Tag) extends Table[Program](tag, "PROGRAM") with TableWithId {
     def id = column[Long]("ID", O.PrimaryKey, O.AutoInc)
 
     def name = column[String]("NAME")
